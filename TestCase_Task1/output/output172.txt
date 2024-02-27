@@ -1,0 +1,400 @@
+insert 2 5
+print : nullptr
+push_back 8
+print : nullptr
+get 9 : get(): Out of range
+print : nullptr
+insert 1 3
+print : nullptr
+push_back 1
+print : nullptr
+insert 0 0
+print : nullptr
+clear
+print : nullptr
+remove 5
+print : nullptr
+insert 1 -1
+print : nullptr
+reverse : nullptr
+print : nullptr
+push_front 3
+print : nullptr
+push_front 10
+print : nullptr
+push_back 9
+print : nullptr
+subList 4 10 : nullptr
+print : nullptr
+insert 0 6
+print : nullptr
+get 2 : get(): Out of range
+print : nullptr
+get 3 : get(): Out of range
+print : nullptr
+push_front 2
+print : nullptr
+remove 2
+print : nullptr
+remove 5
+print : nullptr
+push_back 10
+print : nullptr
+push_back 9
+print : nullptr
+distanceEuclidean 5 8 3 10 1 8 : 0
+print : nullptr
+insert 4 6
+print : nullptr
+remove 5
+print : nullptr
+push_back 2
+print : nullptr
+distanceEuclidean 7 5 3 10 5 5 7 7 : 0
+print : nullptr
+subList 5 8 : nullptr
+print : nullptr
+subList 0 1 : nullptr
+print : nullptr
+insert 3 0
+print : nullptr
+push_front 10
+print : nullptr
+push_back -1
+print : nullptr
+push_front 10
+print : nullptr
+remove 5
+print : nullptr
+remove 4
+print : nullptr
+insert 1 1
+print : nullptr
+push_front 6
+print : nullptr
+distanceEuclidean 10 7 7 2 1 3 4 9 1 9 6 : 0
+print : nullptr
+subList 3 6 : nullptr
+print : nullptr
+remove 0
+print : nullptr
+push_front -1
+print : nullptr
+remove 0
+print : nullptr
+reverse : nullptr
+print : nullptr
+remove 1
+print : nullptr
+subList 0 2 : nullptr
+print : nullptr
+push_back 5
+print : nullptr
+get 2 : get(): Out of range
+print : nullptr
+push_front 6
+print : nullptr
+push_front 1
+print : nullptr
+push_front 6
+print : nullptr
+insert 0 9
+print : nullptr
+push_front -1
+print : nullptr
+remove 1
+print : nullptr
+remove 3
+print : nullptr
+insert 4 2
+print : nullptr
+insert 3 0
+print : nullptr
+remove 1
+print : nullptr
+distanceEuclidean 3 9 6 6 : 0
+print : nullptr
+reverse : nullptr
+print : nullptr
+get 6 : get(): Out of range
+print : nullptr
+get 5 : get(): Out of range
+print : nullptr
+push_back 3
+print : nullptr
+insert 2 7
+print : nullptr
+get 9 : get(): Out of range
+print : nullptr
+push_back 5
+print : nullptr
+insert 5 3
+print : nullptr
+push_front 7
+print : nullptr
+push_front 1
+print : nullptr
+distanceEuclidean 3 10 1 5 : 0
+print : nullptr
+insert 1 10
+print : nullptr
+reverse : nullptr
+print : nullptr
+push_back 7
+print : nullptr
+get 7 : get(): Out of range
+print : nullptr
+subList 0 4 : nullptr
+print : nullptr
+push_front 6
+print : nullptr
+insert 4 3
+print : nullptr
+distanceEuclidean 10 6 3 4 3 1 6 1 7 1 2 : 0
+print : nullptr
+reverse : nullptr
+print : nullptr
+subList 4 8 : nullptr
+print : nullptr
+reverse : nullptr
+print : nullptr
+remove 5
+print : nullptr
+remove 0
+print : nullptr
+get 3 : get(): Out of range
+print : nullptr
+push_back 7
+print : nullptr
+remove 0
+print : nullptr
+reverse : nullptr
+print : nullptr
+insert 2 0
+print : nullptr
+push_front 0
+print : nullptr
+push_front 0
+print : nullptr
+remove 0
+print : nullptr
+reverse : nullptr
+print : nullptr
+get 6 : get(): Out of range
+print : nullptr
+remove 1
+print : nullptr
+insert 0 -1
+print : nullptr
+subList 1 7 : nullptr
+print : nullptr
+push_front 6
+print : nullptr
+push_front 5
+print : nullptr
+remove 3
+print : nullptr
+get 4 : get(): Out of range
+print : nullptr
+push_front 5
+print : nullptr
+reverse : nullptr
+print : nullptr
+push_back 7
+print : nullptr
+push_back 8
+print : nullptr
+push_front 3
+print : nullptr
+remove 4
+print : nullptr
+insert 5 7
+print : nullptr
+push_front 5
+print : nullptr
+distanceEuclidean 6 7 7 4 1 1 8 : 0
+print : nullptr
+remove 2
+print : nullptr
+get 7 : get(): Out of range
+print : nullptr
+remove 4
+print : nullptr
+distanceEuclidean 3 5 7 2 : 0
+print : nullptr
+insert 0 7
+print : nullptr
+remove 2
+print : nullptr
+subList 0 2 : nullptr
+print : nullptr
+insert 1 2
+print : nullptr
+push_back -1
+print : nullptr
+push_back 2
+print : nullptr
+push_front 4
+print : nullptr
+insert 2 4
+print : nullptr
+insert 1 4
+print : nullptr
+insert 4 9
+print : nullptr
+push_back -1
+print : nullptr
+reverse : nullptr
+print : nullptr
+push_back 9
+print : nullptr
+push_front 1
+print : nullptr
+push_front 1
+print : nullptr
+distanceEuclidean 10 10 1 2 8 10 2 6 5 5 5 : 0
+print : nullptr
+insert 0 6
+print : nullptr
+push_back 9
+print : nullptr
+push_back 1
+print : nullptr
+subList 2 5 : nullptr
+print : nullptr
+distanceEuclidean 9 4 3 6 3 2 6 1 9 3 : 0
+print : nullptr
+push_back 9
+print : nullptr
+remove 1
+print : nullptr
+insert 3 5
+print : nullptr
+get 10 : get(): Out of range
+print : nullptr
+push_back 8
+print : nullptr
+remove 1
+print : nullptr
+insert 4 4
+print : nullptr
+push_back 7
+print : nullptr
+push_front 2
+print : nullptr
+remove 5
+print : nullptr
+push_back 10
+print : nullptr
+get 6 : get(): Out of range
+print : nullptr
+distanceEuclidean 3 10 10 6 : 0
+print : nullptr
+distanceEuclidean 8 10 7 6 4 3 3 2 10 : 0
+print : nullptr
+push_front 10
+print : nullptr
+get 1 : get(): Out of range
+print : nullptr
+push_back 7
+print : nullptr
+insert 0 3
+print : nullptr
+distanceEuclidean 2 7 1 : 0
+print : nullptr
+get 7 : get(): Out of range
+print : nullptr
+push_front -1
+print : nullptr
+insert 3 7
+print : nullptr
+insert 0 7
+print : nullptr
+push_front 10
+print : nullptr
+length : 0
+print : nullptr
+get 3 : get(): Out of range
+print : nullptr
+remove 5
+print : nullptr
+push_back 8
+print : nullptr
+insert 1 2
+print : nullptr
+remove 3
+print : nullptr
+get 7 : get(): Out of range
+print : nullptr
+insert 5 10
+print : nullptr
+push_front 4
+print : nullptr
+insert 0 10
+print : nullptr
+remove 3
+print : nullptr
+push_back 7
+print : nullptr
+push_front 6
+print : nullptr
+insert 4 -1
+print : nullptr
+insert 1 2
+print : nullptr
+push_front 3
+print : nullptr
+remove 0
+print : nullptr
+push_back 3
+print : nullptr
+push_back 0
+print : nullptr
+push_back 10
+print : nullptr
+subList 3 8 : nullptr
+print : nullptr
+push_back 9
+print : nullptr
+remove 5
+print : nullptr
+insert 3 6
+print : nullptr
+push_front 8
+print : nullptr
+push_front 6
+print : nullptr
+get 2 : get(): Out of range
+print : nullptr
+push_back 3
+print : nullptr
+remove 1
+print : nullptr
+get 3 : get(): Out of range
+print : nullptr
+subList 2 6 : nullptr
+print : nullptr
+distanceEuclidean 2 3 3 : 0
+print : nullptr
+push_back 5
+print : nullptr
+remove 4
+print : nullptr
+push_front 6
+print : nullptr
+remove 2
+print : nullptr
+push_front -1
+print : nullptr
+insert 3 9
+print : nullptr
+push_back 1
+print : nullptr
+push_back 8
+print : nullptr
+length : 0
+print : nullptr
+length : 0
+print : nullptr
+subList 1 2 : nullptr
+print : nullptr

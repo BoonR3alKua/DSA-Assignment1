@@ -1,0 +1,19 @@
+insert 2 1
+insert -1 0
+print : nullptr
+insert 0 1
+print : nullptr
+insert 0 0
+print : nullptr
+insert 2 2
+print : nullptr
+insert 2 3
+print : nullptr
+insert 1 4
+print : nullptr
+length : 0
+insert 0 7
+print : nullptr
+clear
+print : nullptr
+length : 0

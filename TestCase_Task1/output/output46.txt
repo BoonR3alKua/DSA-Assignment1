@@ -1,0 +1,400 @@
+push_back 5
+print : nullptr
+get 0 : get(): Out of range
+print : nullptr
+get 2 : get(): Out of range
+print : nullptr
+get 1 : get(): Out of range
+print : nullptr
+insert 5 7
+print : nullptr
+insert 5 8
+print : nullptr
+length : 0
+print : nullptr
+insert 4 4
+print : nullptr
+push_front 0
+print : nullptr
+insert 3 8
+print : nullptr
+push_front 0
+print : nullptr
+length : 0
+print : nullptr
+remove 1
+print : nullptr
+push_front 10
+print : nullptr
+subList 5 10 : nullptr
+print : nullptr
+reverse : nullptr
+print : nullptr
+remove 4
+print : nullptr
+insert 1 0
+print : nullptr
+insert 5 0
+print : nullptr
+push_front 1
+print : nullptr
+push_front 10
+print : nullptr
+push_back 6
+print : nullptr
+remove 1
+print : nullptr
+push_back 7
+print : nullptr
+push_front 0
+print : nullptr
+distanceEuclidean 6 2 10 7 2 2 7 : 0
+print : nullptr
+get 1 : get(): Out of range
+print : nullptr
+insert 0 10
+print : nullptr
+insert 4 -1
+print : nullptr
+remove 2
+print : nullptr
+push_back 8
+print : nullptr
+push_front 3
+print : nullptr
+remove 0
+print : nullptr
+push_front -1
+print : nullptr
+push_front 8
+print : nullptr
+clear
+print : nullptr
+push_back 2
+print : nullptr
+remove 5
+print : nullptr
+push_back 9
+print : nullptr
+push_back 6
+print : nullptr
+insert 5 8
+print : nullptr
+subList 1 6 : nullptr
+print : nullptr
+push_front 7
+print : nullptr
+push_front 4
+print : nullptr
+insert 3 10
+print : nullptr
+remove 0
+print : nullptr
+remove 0
+print : nullptr
+get 5 : get(): Out of range
+print : nullptr
+insert 3 2
+print : nullptr
+remove 1
+print : nullptr
+remove 2
+print : nullptr
+push_front -1
+print : nullptr
+push_back 9
+print : nullptr
+insert 5 6
+print : nullptr
+subList 4 10 : nullptr
+print : nullptr
+insert 0 2
+print : nullptr
+push_front 9
+print : nullptr
+push_back 5
+print : nullptr
+distanceEuclidean 4 2 4 10 2 : 0
+print : nullptr
+remove 5
+print : nullptr
+remove 4
+print : nullptr
+push_front 8
+print : nullptr
+push_back 5
+print : nullptr
+insert 2 0
+print : nullptr
+push_back 3
+print : nullptr
+distanceEuclidean 5 2 10 6 1 1 : 0
+print : nullptr
+length : 0
+print : nullptr
+remove 5
+print : nullptr
+get 0 : get(): Out of range
+print : nullptr
+insert 3 4
+print : nullptr
+remove 4
+print : nullptr
+remove 1
+print : nullptr
+push_front 2
+print : nullptr
+push_back 7
+print : nullptr
+push_back 7
+print : nullptr
+subList 2 8 : nullptr
+print : nullptr
+insert 4 8
+print : nullptr
+get 1 : get(): Out of range
+print : nullptr
+remove 1
+print : nullptr
+push_front 5
+print : nullptr
+insert 2 0
+print : nullptr
+distanceEuclidean 4 8 10 9 3 : 0
+print : nullptr
+insert 0 3
+print : nullptr
+get 10 : get(): Out of range
+print : nullptr
+remove 1
+print : nullptr
+remove 0
+print : nullptr
+remove 3
+print : nullptr
+remove 2
+print : nullptr
+remove 2
+print : nullptr
+insert 0 2
+print : nullptr
+insert 3 9
+print : nullptr
+push_front 7
+print : nullptr
+remove 1
+print : nullptr
+push_front 9
+print : nullptr
+push_front 0
+print : nullptr
+distanceEuclidean 7 3 6 3 2 2 3 9 : 0
+print : nullptr
+remove 3
+print : nullptr
+clear
+print : nullptr
+push_back 9
+print : nullptr
+insert 4 4
+print : nullptr
+push_back 0
+print : nullptr
+push_back 1
+print : nullptr
+distanceEuclidean 9 9 3 1 2 3 10 5 8 3 : 0
+print : nullptr
+insert 0 4
+print : nullptr
+push_back 0
+print : nullptr
+push_front 1
+print : nullptr
+insert 4 1
+print : nullptr
+insert 4 4
+print : nullptr
+push_front 10
+print : nullptr
+push_front 5
+print : nullptr
+insert 2 9
+print : nullptr
+push_back 10
+print : nullptr
+subList 2 7 : nullptr
+print : nullptr
+insert 0 9
+print : nullptr
+length : 0
+print : nullptr
+remove 3
+print : nullptr
+remove 1
+print : nullptr
+push_front 2
+print : nullptr
+reverse : nullptr
+print : nullptr
+push_front 6
+print : nullptr
+insert 2 0
+print : nullptr
+remove 3
+print : nullptr
+push_back 1
+print : nullptr
+push_back 2
+print : nullptr
+remove 5
+print : nullptr
+remove 2
+print : nullptr
+remove 5
+print : nullptr
+get 4 : get(): Out of range
+print : nullptr
+reverse : nullptr
+print : nullptr
+insert 4 2
+print : nullptr
+push_front 2
+print : nullptr
+remove 0
+print : nullptr
+remove 2
+print : nullptr
+remove 3
+print : nullptr
+get 1 : get(): Out of range
+print : nullptr
+push_front 6
+print : nullptr
+push_back 8
+print : nullptr
+length : 0
+print : nullptr
+push_front 8
+print : nullptr
+insert 0 5
+print : nullptr
+reverse : nullptr
+print : nullptr
+push_front 6
+print : nullptr
+get 4 : get(): Out of range
+print : nullptr
+subList 2 7 : nullptr
+print : nullptr
+push_front 10
+print : nullptr
+remove 2
+print : nullptr
+distanceEuclidean 4 7 3 7 9 : 0
+print : nullptr
+distanceEuclidean 6 7 8 5 4 6 9 : 0
+print : nullptr
+get 7 : get(): Out of range
+print : nullptr
+push_back 7
+print : nullptr
+push_front 7
+print : nullptr
+remove 4
+print : nullptr
+push_back 6
+print : nullptr
+push_back 10
+print : nullptr
+push_back 5
+print : nullptr
+clear
+print : nullptr
+subList 2 4 : nullptr
+print : nullptr
+reverse : nullptr
+print : nullptr
+remove 4
+print : nullptr
+get 5 : get(): Out of range
+print : nullptr
+push_front 6
+print : nullptr
+push_front 1
+print : nullptr
+insert 4 7
+print : nullptr
+insert 4 7
+print : nullptr
+distanceEuclidean 3 9 1 7 : 0
+print : nullptr
+insert 4 8
+print : nullptr
+push_front 9
+print : nullptr
+push_front 5
+print : nullptr
+subList 4 10 : nullptr
+print : nullptr
+remove 1
+print : nullptr
+push_back 9
+print : nullptr
+subList 3 6 : nullptr
+print : nullptr
+push_back 3
+print : nullptr
+push_back 9
+print : nullptr
+reverse : nullptr
+print : nullptr
+remove 1
+print : nullptr
+remove 0
+print : nullptr
+remove 2
+print : nullptr
+push_front 6
+print : nullptr
+remove 2
+print : nullptr
+reverse : nullptr
+print : nullptr
+remove 2
+print : nullptr
+insert 5 5
+print : nullptr
+insert 2 1
+print : nullptr
+push_front 10
+print : nullptr
+insert 5 1
+print : nullptr
+push_back 4
+print : nullptr
+insert 2 9
+print : nullptr
+get 8 : get(): Out of range
+print : nullptr
+get 2 : get(): Out of range
+print : nullptr
+push_front 1
+print : nullptr
+push_front 4
+print : nullptr
+push_back 3
+print : nullptr
+distanceEuclidean 10 9 8 6 8 8 10 1 2 8 7 : 0
+print : nullptr
+push_back 2
+print : nullptr
+insert 2 5
+print : nullptr
+remove 1
+print : nullptr
+push_front 10
+print : nullptr
+insert 1 5
+print : nullptr
+push_front 10
+print : nullptr

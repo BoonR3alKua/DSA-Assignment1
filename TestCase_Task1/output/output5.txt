@@ -1,0 +1,25 @@
+reverse : nullptr
+insert 0 1
+print : nullptr
+reverse : nullptr
+insert 1 0
+print : nullptr
+reverse : nullptr
+insert 2 2
+print : nullptr
+reverse : nullptr
+insert 2 3
+print : nullptr
+reverse : nullptr
+insert 1 4
+print : nullptr
+reverse : nullptr
+insert 0 7
+print : nullptr
+reverse : nullptr
+remove 2
+print : nullptr
+reverse : nullptr
+remove 3
+print : nullptr
+reverse : nullptr
