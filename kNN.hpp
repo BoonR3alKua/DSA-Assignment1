@@ -62,6 +62,7 @@ public:
     }
     void push_front(T value){
         //TODO: implement task 1
+        Node* newNode = new Node(value);
         if(!head) head = tail = newNode;
         else{
             newNode->next = head;
@@ -74,8 +75,10 @@ public:
         //TODO: implement task 1
         Node* newNode = new Node(value);
         if(!head) {
-            if (index == 0) head = tail = newNode;
-            return;
+            head = tail = newNode;
+        } else if(index == 0) {
+            newNode->next = head;
+            head = newNode;
         } else {
             Node* ptr = head;
             for(int i = 0; i < index - 1; ++i){
@@ -90,29 +93,34 @@ public:
     void remove(int index){
         if(index < 0 || index >= size) return;
         //TODO: implement task 1
-        if(!head) {
-            if (size == 1 && index == 0) delete head;
-            return;
-        } else {
-            Node* ptr = head;
-            for(int i = 0; i < index - 1; ++i){
-                ptr = ptr->next;
-            }
-            Node* temp = ptr->next;
-            Node* next = temp->next;
-            ptr->next = next;
+        if (index == 0) {
+            Node* temp = head;
+            head = head->next;
             delete temp;
+            if (size == 1) tail = nullptr;
+        } else {
+            Node* prev = nullptr;
+            Node* current = head;
+            for (int i = 0; i < index; ++i) {
+                prev = current;
+                current = current->next;
+            }
+            prev->next = current->next;
+            if (index == size - 1) tail = prev;
+            delete current;
         }
         size--;
     }
+
 
     T& get(int index) const{
         if(index < 0 || index >= this->size)  throw std::out_of_range("get(): Out of range");
         //TODO: implement task 1
         Node* ptr = head;
-        for(int i = 0; i < index - 1; ++i){
+        for(int i = 0; i < index; ++i){
             ptr = ptr->next;
         }
+        return this;
     }
 
     int length() const{
@@ -121,6 +129,14 @@ public:
 
     void clear(){
         //TODO: implement task 1
+        Node* current = head;
+        while (current != nullptr) {
+            Node* next = current->next;
+            delete current;
+            current = next;
+        }
+        head = tail = nullptr;
+        size = 0;
     }
 
     void print() const{
@@ -136,6 +152,17 @@ public:
 
     void reverse(){  
         //TODO: implement task 1
+        Node* current = head;
+        Node* prev = nullptr;
+        Node* next = nullptr;
+        tail = head;
+        while (current != nullptr) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
     }
 
     void printStartToEnd(int start, int end) const{
