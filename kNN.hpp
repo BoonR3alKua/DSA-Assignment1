@@ -79,6 +79,9 @@ public:
         } else if(index == 0) {
             newNode->next = head;
             head = newNode;
+        } else if(index == size) {
+            tail->next = newNode;
+            tail = newNode;
         } else {
             Node* ptr = head;
             for(int i = 0; i < index - 1; ++i){
