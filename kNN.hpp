@@ -248,29 +248,46 @@ public:
     Dataset(const Dataset& other)
     {
         if (this == &other) { 
-        return;
-    }
-
-    this->nameCol = new Image<string>();
-    for(int i = 0; i < other.nameCol->length(); ++i) {
-        this->nameCol->push_back(other.nameCol->get(i));
-    }
-
-    this->data = new Image<List<int>*>();
-    for(int i = 0; i < other.data->length(); ++i) {
-        List<int>* originalList = other.data->get(i);
-        List<int>* newList = new Image<int>();
-
-        for (int j = 0; j < originalList->length(); ++j) {
-            newList->push_back(originalList->get(j));
+            return;
         }
 
-        this->data->push_back(newList);
+        this->nameCol = new Image<string>();
+        for(int i = 0; i < other.nameCol->length(); ++i) {
+            this->nameCol->push_back(other.nameCol->get(i));
+        }
+
+        this->data = new Image<List<int>*>();
+        for(int i = 0; i < other.data->length(); ++i) {
+            List<int>* originalList = other.data->get(i);
+            List<int>* newList = new Image<int>();
+
+            for (int j = 0; j < originalList->length(); ++j) {
+                newList->push_back(originalList->get(j));
+            }
+
+            this->data->push_back(newList);
+        }
     }
-    }
+
     Dataset& operator=(const Dataset& other)
     {
         //TODO: implement Task 2
+        this->nameCol = new Image<string>();
+        for(int i = 0; i < other.nameCol->length(); ++i) {
+            this->nameCol->push_back(other.nameCol->get(i));
+        }
+
+        this->data = new Image<List<int>*>();
+        for(int i = 0; i < other.data->length(); ++i) {
+            List<int>* originalList = other.data->get(i);
+            List<int>* newList = new Image<int>();
+
+            for (int j = 0; j < originalList->length(); ++j) {
+                newList->push_back(originalList->get(j));
+            }
+
+            this->data->push_back(newList);
+        }
         return *this;
     }
     bool loadFromCSV(const char* fileName)
@@ -308,26 +325,76 @@ public:
     void getShape(int& nRows, int& nCols) const
     {
         //TODO: implement Task 2
+        if (this->data->length() == 0) {
+            nRows = 0;
+            nCols = 0;
+            return;
+        }
+        nRows = this->data->length();
+        nCols = this->data->get(0)->length();
     }
     void columns() const
     {
         //TODO: implement Task 2
+        nameCol->print();
     }
     void printHead(int nRows = 5, int nCols = 5) const
     {
         if(nRows <= 0 || nCols <= 0) return;
         //TODO: implement Task 2
+        if(nRows > data->length()) nRows = data->length();
+        if(nCols > nameCol->length()) nCols = nameCol->length();
 
+        nameCol->printStartToEnd(0, nCols);
+
+        for (int i = 0; i < nRows - 1; ++i) {
+            data->get(i)->printStartToEnd(0, nCols);
+            cout << endl;
+        }
+        data->get(nRows - 1)->printStartToEnd(0, nCols);
     }
     void printTail(int nRows = 5, int nCols = 5) const
     {
         if(nRows <= 0 || nCols <= 0)  return;
         //TODO: implement Task 2
+        if(nRows > data->length()) nRows = data->length();
+        if(nCols > nameCol->length()) nCols = nameCol->length();
+        
+        nameCol->printStartToEnd(nameCol->length() - nCols, nameCol->length());
+
+        for (int i = data->length() - nRows; i < data->length() - 1; ++i) {
+            data->get(i)->printStartToEnd(data->get(i)->length() - nCols, data->get(i)->length());
+            cout << endl;
+        }
+        data->get(data->length() - 1)->printStartToEnd(data->get(data->length() - 1)->length() - nCols, data->get(data->length() - 1)->length());
     }
     bool drop(int axis = 0, int index = 0, std::string columns = "")
     {
         //TODO: implement Task 2
+        if (data->length() == 0) return false;
+        if(axis == 0) {
+            if(index > -1 && index < data->length()) {
+                data->remove(index);
+                return true;
+            }
+        }else if (axis == 1) {
+            int i = 0;
+            while(columns[i] != 'x') {
+                ++i;
+            }
+            columns[i] = ' ';
+            stringstream ss(columns);
+            string row, col;
+            ss >> row >> col;
+            int irow = stoi(row), icol = stoi(col);
+            for(int i = 0; i < data->length(); ++i) {
+                data->get(i)->remove(irow*icol);
+            }
+            nameCol->remove(irow*icol);
+            return true;
+        }
         return false;
+        
     }
     Dataset extract(int startRow = 0, int endRow = -1, int startCol = 0, int endCol = -1) const
     {
