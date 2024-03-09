@@ -247,9 +247,26 @@ public:
     }
     Dataset(const Dataset& other)
     {
-        this->nameCol = new Image<string>();
-        this->data = new Image<List<int>*>();
-        //TODO: implement Task 2
+        if (this == &other) { 
+        return;
+    }
+
+    this->nameCol = new Image<string>();
+    for(int i = 0; i < other.nameCol->length(); ++i) {
+        this->nameCol->push_back(other.nameCol->get(i));
+    }
+
+    this->data = new Image<List<int>*>();
+    for(int i = 0; i < other.data->length(); ++i) {
+        List<int>* originalList = other.data->get(i);
+        List<int>* newList = new Image<int>();
+
+        for (int j = 0; j < originalList->length(); ++j) {
+            newList->push_back(originalList->get(j));
+        }
+
+        this->data->push_back(newList);
+    }
     }
     Dataset& operator=(const Dataset& other)
     {
