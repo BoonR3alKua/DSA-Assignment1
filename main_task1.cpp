@@ -93,7 +93,7 @@ void run_task_1(string fileName)
                 OUTPUT << value << " ";
                 other->push_back(value);
             }
-            OUTPUT << ": " << list->distanceEuclidean(other) << endl; 
+            //OUTPUT << ": " << list->distanceEuclidean(other) << endl; 
             delete other;
         }
         else if(s == "subList")

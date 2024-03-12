@@ -266,6 +266,12 @@ public:
         return *this;
     }
 
+    List<List<int> *> *getData() const
+    {
+        // ! UPDATE file thay
+        return data;
+    }
+
     bool loadFromCSV(const char* fileName)
     {   
         ifstream file(fileName);
@@ -463,19 +469,29 @@ public:
     }
 };
 
-void train_test_split(Dataset& X, Dataset& Y, double test_size, 
-                        Dataset& X_train, Dataset& X_test, Dataset& Y_train, Dataset& Y_test)
+void train_test_split(Dataset &X, Dataset &Y, double test_size,
+                      Dataset &X_train, Dataset &X_test, Dataset &Y_train, Dataset &Y_test)
 {
-    //* phân chia X
-    int nRowsX, nColsX;
-    X.getShape(nRowsX, nColsX);
-    X_train = X.extract(0, test_size * nRowsX, 0, -1);
-    X_test = X.extract(test_size * nRowsX, -1 , 0, -1);
+    if (test_size >= 1 || test_size <= 0)
+    {
+        return;
+    }
+    if (X.getData()->length() != Y.getData()->length())
+        return;
 
-    //* phân chia Y
-    int nRowsY, nColsY;
-    Y.getShape(nRowsY, nColsY);
-    Y_train = Y.extract(0, test_size * nRowsY, 0, -1);
-    Y_test = Y.extract(test_size * nRowsY, -1 , 0, -1);
+    //* phân chia phần train
+    int xRows, xCols, yRows, yCols;
+    X.getShape(xRows, xCols);
+    Y.getShape(yRows, yCols);
+
+    X_train = X.extract(0, float(1 - test_size) * xRows - 1, 0, -1);
+
+    Y_train = Y.extract(0, float(1 - test_size) * yRows - 1, 0, -1);
+
+    //* phân chia phần test
+
+    X_test = X.extract(float(1 - test_size) * xRows, xRows, 0, -1);
+
+    Y_test = Y.extract(float(1 - test_size) * yRows, yRows, 0, -1);
 }
 // Please add more or modify as needed
