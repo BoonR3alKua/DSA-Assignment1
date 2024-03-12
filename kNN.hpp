@@ -24,7 +24,6 @@ public:
     //! Hàm hỗ trợ thêm
     virtual List<T>* subList(int start, int end) = 0;
     virtual void printStartToEnd(int start, int end) const = 0; 
-    virtual double distanceEuclidean(const List<T>* image) = 0;
 };
 
 template<typename T>
@@ -170,59 +169,32 @@ public:
 
     void printStartToEnd(int start, int end) const{
         Node* temp = head;
+        for(int i = 0; i < start; i++) temp = temp->next;
         for(int i = start; i < end && i < this->size; i++)
         {
             if(i == end - 1 || i == this->size - 1) OUTPUT << temp->pointer << endl;
             else OUTPUT << temp->pointer << " ";
+            temp = temp->next;
         }
     } 
 
-    List<T>* subList(int start, int end){
-
-        if (start < 0 || start >= this->size || end <= start) return nullptr;
+    List<T>* subList(int start, int end) {
+        if (start < 0 || start >= this->size || end < start) return nullptr;
         List<T>* result = new Image<T>();
-
-        //TODO: implement task 1
-        //^ gợi ý: dùng push_back
-        end = min(end, this->size);
         Node* ptr = head;
         for (int i = 0; i < start; ++i) {
             ptr = ptr->next;
         }
-        for (int i = start; i < end; ++i) {
+        if (start == end) {
             result->push_back(ptr->pointer);
-            ptr = ptr->next;
+        } else {
+            end = min(end, this->size);
+            for (int i = start; i <= end; ++i) {
+                result->push_back(ptr->pointer);
+                ptr = ptr->next;
+            }
         }
         return result;
-    }
-
-    double distanceEuclidean(const List<T>* image){
-        double distance = 0.0;
-        //TODO: implement task 1
-        //^ gợi ý dùng length, get
-        if (this->length() != image->length()) {
-            int i = 0;
-            int count = min(this->length(), image->length());
-            for (i; i < count; ++i) {
-                T diff = this->get(i) - image->get(i);
-                distance += diff * diff;
-            }
-            if(this->length() < image->length()){
-                for (i; i < image->length(); i++) {
-                    distance += image->get(i) * image->get(i);
-                } 
-            } else {
-                for (i; i < this->length(); i++) {
-                    distance += this->get(i) * this->get(i);
-                }
-            }
-        } else {
-            for (int i = 0; i < this->length(); ++i) {
-                T diff = this->get(i) - image->get(i);
-                distance += diff * diff;
-            }
-        }
-        return sqrt(distance);
     }
 };
 
@@ -269,27 +241,31 @@ public:
         }
     }
 
-    Dataset& operator=(const Dataset& other)
-    {
-        //TODO: implement Task 2
-        this->nameCol = new Image<string>();
-        for(int i = 0; i < other.nameCol->length(); ++i) {
-            this->nameCol->push_back(other.nameCol->get(i));
-        }
-
-        this->data = new Image<List<int>*>();
-        for(int i = 0; i < other.data->length(); ++i) {
-            List<int>* originalList = other.data->get(i);
-            List<int>* newList = new Image<int>();
-
-            for (int j = 0; j < originalList->length(); ++j) {
-                newList->push_back(originalList->get(j));
+    Dataset& operator=(const Dataset& other) {
+        if (this != &other) {
+            delete nameCol;
+            for (int i = 0; i < data->length(); ++i) {
+                delete data->get(i);
+            }
+            delete data;
+            this->nameCol = new Image<string>();
+            for (int i = 0; i < other.nameCol->length(); ++i) {
+                this->nameCol->push_back(other.nameCol->get(i));
             }
 
-            this->data->push_back(newList);
+            this->data = new Image<List<int>*>();
+            for (int i = 0; i < other.data->length(); ++i) {
+                List<int>* originalList = other.data->get(i);
+                List<int>* newList = new Image<int>();
+                for (int j = 0; j < originalList->length(); ++j) {
+                    newList->push_back(originalList->get(j));
+                }
+                this->data->push_back(newList);
+            }
         }
         return *this;
     }
+
     bool loadFromCSV(const char* fileName)
     {   
         ifstream file(fileName);
@@ -340,6 +316,7 @@ public:
     }
     void printHead(int nRows = 5, int nCols = 5) const
     {
+        if(data->length() == 0) return;
         if(nRows <= 0 || nCols <= 0) return;
         //TODO: implement Task 2
         if(nRows > data->length()) nRows = data->length();
@@ -349,12 +326,12 @@ public:
 
         for (int i = 0; i < nRows - 1; ++i) {
             data->get(i)->printStartToEnd(0, nCols);
-            cout << endl;
         }
         data->get(nRows - 1)->printStartToEnd(0, nCols);
     }
     void printTail(int nRows = 5, int nCols = 5) const
     {
+        if(data->length() == 0) return;
         if(nRows <= 0 || nCols <= 0)  return;
         //TODO: implement Task 2
         if(nRows > data->length()) nRows = data->length();
@@ -364,7 +341,6 @@ public:
 
         for (int i = data->length() - nRows; i < data->length() - 1; ++i) {
             data->get(i)->printStartToEnd(data->get(i)->length() - nCols, data->get(i)->length());
-            cout << endl;
         }
         data->get(data->length() - 1)->printStartToEnd(data->get(data->length() - 1)->length() - nCols, data->get(data->length() - 1)->length());
     }
@@ -378,20 +354,26 @@ public:
                 return true;
             }
         }else if (axis == 1) {
+            if(columns == "") return false;
             int i = 0;
-            while(columns[i] != 'x') {
-                ++i;
+            while(i < nameCol->length()){
+                if(columns == nameCol->get(i)) break;
+                i++;
             }
-            columns[i] = ' ';
-            stringstream ss(columns);
-            string row, col;
-            ss >> row >> col;
-            int irow = stoi(row), icol = stoi(col);
-            for(int i = 0; i < data->length(); ++i) {
-                data->get(i)->remove(irow*icol);
+            if(i == 0) {
+                for(i = 0; i < data->length(); ++i) {
+                    data->get(i)->remove(0);
+                }
+                nameCol->remove(0);
+                return true;
+            } else if (i < nameCol->length()) {
+                int delCol = i;
+                for(i = 0; i < data->length(); ++i) {
+                    data->get(i)->remove(delCol);
+                }
+                nameCol->remove(delCol);
+                return true;
             }
-            nameCol->remove(irow*icol);
-            return true;
         }
         return false;
         
@@ -399,13 +381,52 @@ public:
     Dataset extract(int startRow = 0, int endRow = -1, int startCol = 0, int endCol = -1) const
     {
         //TODO: implement Task 2
+        Dataset* subMatrix = new Dataset();
+        if(data->length() == 0) return* subMatrix;
+        if(endRow < 0 || endRow > data->length() - 1){
+            if(endRow < 0) startRow = 0;
+            endRow = data->length() - 1;
+        }
+        if(endCol < 0 || endCol > data->get(0)->length() - 1){
+            if(endCol < 0) startCol = 0;
+            endCol = data->get(0)->length() - 1;
+        }
+        if(startRow > endRow || startCol > endCol ||startRow > data->length() - 1 || startCol > data->get(0)->length() - 1) return* subMatrix;
+        subMatrix->nameCol = nameCol->subList(startCol, endCol);
+        for(int i = startRow; i <= endRow; ++i) {
+            subMatrix->data->push_back(data->get(i)->subList(startCol, endCol));
+        }
+        return* subMatrix;
     }
 
 
     double distanceEuclidean(const List<int>* x, const List<int>* y) const{
+        double distance = 0.0;
         //TODO: implement Task 2 copy code từ implement Task 1 chỉnh
+        if (x->length() != y->length()) {
+            int i = 0;
+            int count = min(x->length(), y->length());
+            for (i; i < count; ++i) {
+                double diff = x->get(i) - y->get(i);
+                distance += diff * diff;
+            }
+            if(x->length() < y->length()){
+                for (i; i < y->length(); i++) {
+                    distance += y->get(i) * y->get(i);
+                } 
+            } else {
+                for (i; i < x->length(); i++) {
+                    distance += x->get(i) * x->get(i);
+                }
+            }
+        } else {
+            for (int i = 0; i < x->length(); ++i) {
+                double diff = x->get(i) - y->get(i);
+                distance += diff * diff;
+            }
+        }
+        return sqrt(distance);
     }
-
 
     Dataset predict(const Dataset& X_train, const Dataset& Y_train, const int k) const
     {

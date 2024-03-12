@@ -20,8 +20,8 @@
 
 using namespace std;
 static ofstream OUTPUT;
-#define folder_input  "TestCase_Task1/input/input"
-#define folder_output "TestCase_Task1/output/output"
-#define folder_expect "TestCase_Task1/expect/expect"
+#define folder_input  "TestCase_Task2/input/input"
+#define folder_output "TestCase_Task2/output/output"
+#define folder_expect "TestCase_Task2/expect/expect"
 
 #endif //DSA232_A1_MAIN_H
