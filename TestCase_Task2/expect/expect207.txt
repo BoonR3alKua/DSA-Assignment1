@@ -21,21 +21,18 @@ VoTien VoTien1x1 VoTien1x2 VoTie1x3 2x1 2x2 2x3
 1 0 3 4 2 0 3
 2 8 0 0 2 5 6
 Line 6 extract 0 0 2 -1
-VoTien VoTien1x1 VoTien1x2 VoTie1x3 2x1 2x2 2x3
-1 0 3 4 2 0 3
+VoTien1x2 VoTie1x3 2x1 2x2 2x3
+3 4 2 0 3
 Line 7 extract 5 5 0 -1
 VoTien VoTien1x1 VoTien1x2 VoTie1x3 2x1 2x2 2x3
 6 7 3 0 0 3 3
 Line 8 extract 2 4 2 -1
-VoTien VoTien1x1 VoTien1x2 VoTie1x3 2x1 2x2 2x3
-3 7 3 0 0 3 3
-4 0 3 4 2 0 3
-5 8 0 0 2 5 6
+VoTien1x2 VoTie1x3 2x1 2x2 2x3
+3 0 0 3 3
+3 4 2 0 3
+0 0 2 5 6
 Line 9 extract 3 -1 0 6
 VoTien VoTien1x1 VoTien1x2 VoTie1x3 2x1 2x2 2x3
-1 0 3 4 2 0 3
-2 8 0 0 2 5 6
-3 7 3 0 0 3 3
 4 0 3 4 2 0 3
 5 8 0 0 2 5 6
 6 7 3 0 0 3 3
@@ -49,8 +46,6 @@ VoTien
 6
 Line 11 extract 2 -1 6 6
 2x3
-3
-6
 3
 3
 6

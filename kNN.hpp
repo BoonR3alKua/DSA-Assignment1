@@ -384,11 +384,11 @@ public:
         Dataset* subMatrix = new Dataset();
         if(data->length() == 0) return* subMatrix;
         if(endRow < 0 || endRow > data->length() - 1){
-            if(endRow < 0) startRow = 0;
+            //if(endRow < 0) startRow = 0;
             endRow = data->length() - 1;
         }
         if(endCol < 0 || endCol > data->get(0)->length() - 1){
-            if(endCol < 0) startCol = 0;
+            //if(endCol < 0) startCol = 0;
             endCol = data->get(0)->length() - 1;
         }
         if(startRow > endRow || startCol > endCol ||startRow > data->length() - 1 || startCol > data->get(0)->length() - 1) return* subMatrix;
