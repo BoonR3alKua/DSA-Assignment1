@@ -142,11 +142,10 @@ public:
     }
 
     void print() const {
-        if(size == 0) OUTPUT << "nullptr" << endl;
+        if(size == 0) return;
         Node* temp = head;
-        for(int i = 0; i < this->size; i++)
-        {
-            if(i == this->size - 1) OUTPUT << temp->pointer << endl;
+        for(int i = 0; i < this->size; i++) {
+            if(i == this->size - 1) OUTPUT << temp->pointer;
             else OUTPUT << temp->pointer << " ";
             temp = temp->next;
         }
@@ -170,26 +169,28 @@ public:
     void printStartToEnd(int start, int end) const{
         Node* temp = head;
         for(int i = 0; i < start; i++) temp = temp->next;
-        for(int i = start; i < end && i < this->size; i++)
+        
+        for(int i = start; i < end && i < this->size; ++i)
         {
-            if(i == end - 1 || i == this->size - 1) OUTPUT << temp->pointer << endl;
+            if(i == end - 1 || i == this->size - 1) OUTPUT << temp->pointer;
             else OUTPUT << temp->pointer << " ";
             temp = temp->next;
         }
     } 
 
     List<T>* subList(int start, int end) {
-        if (start < 0 || start >= this->size || end < start) return nullptr;
+        if (start < 0 || start >= this->size || end < start || head == nullptr) return nullptr;
         List<T>* result = new Image<T>();
         Node* ptr = head;
         for (int i = 0; i < start; ++i) {
             ptr = ptr->next;
         }
+        if(ptr == nullptr) return nullptr;
         if (start == end) {
             result->push_back(ptr->pointer);
         } else {
             end = min(end, this->size);
-            for (int i = start; i <= end; ++i) {
+            for (int i = start; i <= end && i <= this->size; ++i) {
                 result->push_back(ptr->pointer);
                 ptr = ptr->next;
             }
@@ -222,7 +223,7 @@ public:
         if (this == &other) { 
             return;
         }
-
+        
         this->nameCol = new Image<string>();
         for(int i = 0; i < other.nameCol->length(); ++i) {
             this->nameCol->push_back(other.nameCol->get(i));
@@ -322,33 +323,48 @@ public:
     }
     void printHead(int nRows = 5, int nCols = 5) const
     {
-        if(data->length() == 0) return;
+        int row = nRows, col = nCols;
+        if(data->length() == 0) {
+            this->columns();
+            return;
+        }
         if(nRows <= 0 || nCols <= 0) return;
         //TODO: implement Task 2
-        if(nRows > data->length()) nRows = data->length();
-        if(nCols > nameCol->length()) nCols = nameCol->length();
+        if(nRows > this->data->length()) row = this->data->length();
+        if(nCols > nameCol->length()) col = nameCol->length();
 
-        nameCol->printStartToEnd(0, nCols);
-
-        for (int i = 0; i < nRows - 1; ++i) {
-            data->get(i)->printStartToEnd(0, nCols);
+        if(nameCol->length() != 0)nameCol->printStartToEnd(0, col);
+        OUTPUT << endl;
+        col = nCols;
+        if(nCols > this->data->get(0)->length()) col = this->data->get(0)->length();
+        for (int i = 0; i < row; i++) {
+            data->get(i)->printStartToEnd(0, col);
+            if (i == row - 1) break;
+            OUTPUT << endl;
         }
-        data->get(nRows - 1)->printStartToEnd(0, nCols);
     }
+
     void printTail(int nRows = 5, int nCols = 5) const
     {
-        if(data->length() == 0) return;
-        if(nRows <= 0 || nCols <= 0)  return;
-        //TODO: implement Task 2
-        if(nRows > data->length()) nRows = data->length();
-        if(nCols > nameCol->length()) nCols = nameCol->length();
-        
-        nameCol->printStartToEnd(nameCol->length() - nCols, nameCol->length());
-
-        for (int i = data->length() - nRows; i < data->length() - 1; ++i) {
-            data->get(i)->printStartToEnd(data->get(i)->length() - nCols, data->get(i)->length());
+        if(data->length() == 0) {
+            this->columns();
+            return;
         }
-        data->get(data->length() - 1)->printStartToEnd(data->get(data->length() - 1)->length() - nCols, data->get(data->length() - 1)->length());
+        if(nRows <= 0 || nCols <= 0) return;
+        //TODO: implement Task 2
+        int tmpCols = nCols;
+        if(nRows > data->length()) nRows = data->length();
+        if(tmpCols > nameCol->length()) tmpCols = nameCol->length();
+        
+        nameCol->printStartToEnd(nameCol->length() - tmpCols, nameCol->length());
+        OUTPUT << endl;
+
+        for (int i = data->length() - nRows; i < data->length(); ++i) {
+            tmpCols = nCols;
+            if(tmpCols > nameCol->length()) tmpCols = nameCol->length();
+            data->get(i)->printStartToEnd(data->get(i)->length() - tmpCols, data->get(i)->length());
+            if(i != data->length() - 1)OUTPUT << endl;
+        }
     }
     bool drop(int axis = 0, int index = 0, std::string columns = "")
     {
@@ -387,24 +403,32 @@ public:
     Dataset extract(int startRow = 0, int endRow = -1, int startCol = 0, int endCol = -1) const
     {
         //TODO: implement Task 2
+        int endR = endRow, endC = endCol;
         Dataset* subMatrix = new Dataset();
-        if(data->length() == 0) return* subMatrix;
+        if(this->data->length() == 0) return* subMatrix;
         if(endRow < 0 || endRow > data->length() - 1){
-            if(endRow < 0) startRow = 0;
-            endRow = data->length() - 1;
+            endR = data->length() - 1;
         }
         if(endCol < 0 || endCol > data->get(0)->length() - 1){
-            if(endCol < 0) startCol = 0;
-            endCol = data->get(0)->length() - 1;
+            endC = data->get(0)->length() - 1;
         }
-        if(startRow > endRow || startCol > endCol ||startRow > data->length() - 1 || startCol > data->get(0)->length() - 1) return* subMatrix;
-        subMatrix->nameCol = nameCol->subList(startCol, endCol);
-        for(int i = startRow; i <= endRow; ++i) {
-            subMatrix->data->push_back(data->get(i)->subList(startCol, endCol));
+        if( startRow > endR || startCol > endC ||startRow > data->length() - 1 
+            || startCol > data->get(0)->length() - 1) return* subMatrix;
+        endC = endCol;
+        if(endCol < 0 || endCol > nameCol->length() - 1){
+            endC = nameCol->length() - 1;
+        }
+        if(startCol <= endC) subMatrix->nameCol = nameCol->subList(startCol, endC);
+        else subMatrix->nameCol->push_back("");
+        for(int i = startRow; i <= endR; ++i) {
+            endC = endCol;
+            if(endCol < 0 || endCol > data->get(i)->length() - 1){
+                endC = data->get(i)->length() - 1;
+            }
+            subMatrix->data->push_back(data->get(i)->subList(startCol, endC));
         }
         return* subMatrix;
     }
-
 
     double distanceEuclidean(const List<int>* x, const List<int>* y) const{
         double distance = 0.0;
@@ -434,37 +458,165 @@ public:
         return sqrt(distance);
     }
 
+    void merge(double* array, int* label, int const left, int const mid,
+           int const right) const {
+        int const subArrayOne = mid - left + 1;
+        int const subArrayTwo = right - mid;
+    
+        double  *leftArray = new double[subArrayOne],
+                *rightArray = new double[subArrayTwo];
+        int     *leftLabelArray = new int[subArrayOne],
+                *rightLabelArray = new int[subArrayTwo];
+
+        for (auto i = 0; i < subArrayOne; i++){
+            leftArray[i] = array[left + i];
+            leftLabelArray[i] = label[left + i];
+        }
+            
+        for (auto j = 0; j < subArrayTwo; j++){
+            rightArray[j] = array[mid + 1 + j];
+            rightLabelArray[j] = label[mid + 1 + j];
+        }
+            
+    
+        auto indexOfSubArrayOne = 0, indexOfSubArrayTwo = 0;
+        int indexOfMergedArray = left;
+
+        while (indexOfSubArrayOne < subArrayOne
+            && indexOfSubArrayTwo < subArrayTwo) {
+            if (leftArray[indexOfSubArrayOne]
+                <= rightArray[indexOfSubArrayTwo]) {
+                array[indexOfMergedArray]
+                    = leftArray[indexOfSubArrayOne];
+                label[indexOfMergedArray]
+                    = leftLabelArray[indexOfSubArrayOne];
+                indexOfSubArrayOne++;
+            }
+            else {
+                array[indexOfMergedArray]
+                    = rightArray[indexOfSubArrayTwo];
+                label[indexOfMergedArray]
+                    = rightLabelArray[indexOfSubArrayTwo];
+                indexOfSubArrayTwo++;
+            }
+            indexOfMergedArray++;
+        }
+
+        while (indexOfSubArrayOne < subArrayOne) {
+            array[indexOfMergedArray]
+                = leftArray[indexOfSubArrayOne];
+            label[indexOfMergedArray]
+                = leftLabelArray[indexOfSubArrayOne];
+            indexOfSubArrayOne++;
+            indexOfMergedArray++;
+        }
+
+        while (indexOfSubArrayTwo < subArrayTwo) {
+            array[indexOfMergedArray]
+                = rightArray[indexOfSubArrayTwo];
+            label[indexOfMergedArray]
+                = rightLabelArray[indexOfSubArrayTwo];
+            indexOfSubArrayTwo++;
+            indexOfMergedArray++;
+        }
+        delete[] leftArray;
+        delete[] rightArray;
+        delete[] leftLabelArray;
+        delete[] rightLabelArray;
+    }
+    
+    void mergeSort(double* array, int* label, int const begin, int const end) const {
+        if (begin >= end)
+            return;
+        int mid = begin + (end - begin) / 2;
+        mergeSort(array, label, begin, mid);
+        mergeSort(array, label, mid + 1, end);
+        merge(array, label, begin, mid, end);
+    }
+
+    int findkNNLabel(double* distances, int* label, int const length, const int k) const{
+        mergeSort(distances, label, 0, length - 1);
+        int i;
+        int count[10] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        for(i = 0; i < k; ++i){
+            if(count[label[i]] == -1) count[label[i]] += 2;
+            else ++count[label[i]];
+        }
+        int max = 0;
+        for (i = 0; i < 10; ++i){
+            if(count[i] > max) max = count[i];
+        }
+        
+        for(i = 0; i < 10; ++i){
+            if(count[i] == max) break;
+        }
+        return i;
+    }
+
     Dataset predict(const Dataset& X_train, const Dataset& Y_train, const int k) const
     {
-       //TODO: implement Task 3 
-       return Dataset();
+        Dataset result;
+        if (k < 1 || this->data->length() == 0 || X_train.data->length() == 0 || Y_train.data->length() == 0)  return result;
+        int newK = k;
+        if(k > X_train.data->length()) newK = X_train.data->length();
+        result.nameCol->push_back(Y_train.nameCol->get(0));
+        int lengthTrain = min(X_train.data->length(), Y_train.data->length());
+        int *label = new int[lengthTrain];
+        double *distances = new double[lengthTrain];
+        for (int i = 0; i < this->data->length(); i++)
+        {
+            if (!this->data->get(i)) {
+                continue;
+            }
+
+            for (int j = 0; j < lengthTrain; j++){
+                label[j] = Y_train.data->get(j)->get(0);
+            }
+            for (int j = 0; j < lengthTrain; ++j){
+                distances[j] = distanceEuclidean(this->data->get(i), X_train.data->get(j));
+            }
+            
+            int predictedLabel = findkNNLabel(distances, label, lengthTrain, newK);
+            List<int> *tmp = new Image<int>();
+            tmp->push_back(predictedLabel);
+            result.data->push_back(tmp);
+        }
+        delete[] distances;
+        delete[] label;
+        return result;
     }
     double score(const Dataset& y_test) const
     {   
         //TODO: implement Task 3 
-        return -1;
+        if(this->data->length() != y_test.data->length() || this->data->length() == 0) return -1;
+        int count = 0;
+        for(int i = 0; i < this->data->length(); ++i){
+            if(this->data->get(i)->get(0) == y_test.data->get(i)->get(0)) count++;
+        }
+        return static_cast<double> (count) / this->data->length();
     }
 };
 
-class kNN {
+class kNN
+{
 private:
     int k;
     Dataset X_train;
     Dataset Y_train;
-    //You may need to define more
+    // You may need to define more
 public:
-    kNN(int k = 5):k(k){};
-    void fit(const Dataset& X_train, const Dataset& y_train)
+    kNN(int k = 5) : k(k){};
+    void fit(const Dataset &X_train, const Dataset &y_train)
     {
         this->X_train = X_train;
         this->Y_train = y_train;
     }
-    Dataset predict(const Dataset& X_test)
-    { 
+    Dataset predict(const Dataset &X_test)
+    {
         return X_test.predict(this->X_train, this->Y_train, this->k);
     }
-    double score(const Dataset& y_test, const Dataset& y_pred)
-    {   
+    double score(const Dataset &y_test, const Dataset &y_pred)
+    {
         return y_test.score(y_pred);
     }
 };
@@ -472,26 +624,20 @@ public:
 void train_test_split(Dataset &X, Dataset &Y, double test_size,
                       Dataset &X_train, Dataset &X_test, Dataset &Y_train, Dataset &Y_test)
 {
-    if (test_size >= 1 || test_size <= 0)
-    {
-        return;
-    }
-    if (X.getData()->length() != Y.getData()->length())
+    if (X.getData()->length() != Y.getData()->length() || test_size >= 1 || test_size <= 0)
         return;
 
-    //* phân chia phần train
-    int xRows, xCols, yRows, yCols;
-    X.getShape(xRows, xCols);
-    Y.getShape(yRows, yCols);
+    double minDouble = 1.0e-15;
+    int nRow = X.getData()->length();
+    double rowSplit = nRow * (1 - test_size);
 
-    X_train = X.extract(0, float(1 - test_size) * xRows - 1, 0, -1);
+    if (abs(round(rowSplit) - rowSplit) < minDouble * nRow)
+        rowSplit = round(rowSplit);
 
-    Y_train = Y.extract(0, float(1 - test_size) * yRows - 1, 0, -1);
+    X_train = X.extract(0, rowSplit - 1, 0, -1);
+    Y_train = Y.extract(0, rowSplit - 1, 0, -1);
 
-    //* phân chia phần test
-
-    X_test = X.extract(float(1 - test_size) * xRows, xRows, 0, -1);
-
-    Y_test = Y.extract(float(1 - test_size) * yRows, yRows, 0, -1);
+    X_test = X.extract(rowSplit, -1, 0, -1);
+    Y_test = Y.extract(rowSplit, -1, 0, -1);
 }
 // Please add more or modify as needed

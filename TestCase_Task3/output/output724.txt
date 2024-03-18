@@ -12,7 +12,8 @@ Line 13 drop 0 4 1x1 : true
 Line 14 drop 0 65 1x1 : true
 Line 15 drop 0 23 1x1 : true
 Line 16 getShape : 72 2
-Line 17 columns : label 1x2Line 18 printHead 100 100
+Line 17 columns : label 1x2
+Line 18 printHead 100 100
 label 1x2
 4 46
 4 66
@@ -85,7 +86,8 @@ label 1x2
 6 0
 6 92
 1 64
-5 99Line X_train : 
+5 99
+Line X : 72 1
 1x2
 46
 66
@@ -134,7 +136,156 @@ label 1x2
 21
 94
 87
-25Line X_test : 
+25
+32
+7
+97
+83
+51
+28
+53
+68
+83
+46
+6
+59
+50
+48
+79
+93
+51
+54
+54
+98
+0
+92
+64
+99
+Line Y : 72 1
+label
+4
+4
+7
+4
+0
+2
+5
+1
+1
+7
+7
+0
+7
+8
+0
+2
+3
+6
+8
+7
+7
+7
+6
+0
+6
+9
+3
+9
+6
+0
+6
+2
+4
+4
+3
+3
+3
+1
+0
+4
+3
+5
+9
+6
+9
+0
+9
+8
+6
+0
+3
+3
+2
+7
+5
+8
+8
+4
+9
+4
+8
+9
+6
+1
+9
+4
+7
+9
+6
+6
+1
+5
+Line X_train : 48 1
+1x2
+46
+66
+3
+11
+60
+13
+84
+89
+88
+21
+14
+93
+48
+75
+57
+6
+39
+45
+47
+57
+44
+58
+32
+4
+17
+5
+49
+31
+80
+57
+99
+87
+23
+26
+97
+79
+0
+39
+70
+46
+59
+59
+14
+44
+21
+94
+87
+25
+Line X_test : 24 1
 1x2
 32
 7
@@ -159,7 +310,8 @@ label 1x2
 0
 92
 64
-99Line y_train : 
+99
+Line y_train : 48 1
 label
 4
 4
@@ -208,7 +360,8 @@ label
 9
 0
 9
-8Line y_test : 
+8
+Line y_test : 24 1
 label
 6
 0
@@ -233,7 +386,8 @@ label
 6
 6
 1
-5Line y_predict : 
+5
+Line y_predict : 24 1
 label
 4
 4
@@ -258,4 +412,5 @@ label
 4
 0
 0
-0Accuracy: 0.0416667
+0
+Accuracy: 0.0416667
