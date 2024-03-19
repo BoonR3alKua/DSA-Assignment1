@@ -1,6 +1,7 @@
 Line 3 drop 0 15 1x1 : true
 Line 4 getShape : 21 2
 Line 5 columns : label 1x1
+
 Line 6 printHead 100 100
 label 1x1
 8 28

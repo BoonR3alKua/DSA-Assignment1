@@ -24,6 +24,7 @@ public:
     //! Hàm hỗ trợ thêm
     virtual List<T>* subList(int start, int end) = 0;
     virtual void printStartToEnd(int start, int end) const = 0; 
+    virtual T* getArray() const = 0;
 };
 
 template<typename T>
@@ -197,6 +198,21 @@ public:
         }
         return result;
     }
+
+    T* getArray() const {
+        if (head == nullptr) return nullptr;
+        T* arr = new T[this->size];
+        Node* ptr = head;
+        for (int i = 0; i < this->size; ++i) {
+            if (ptr == nullptr) {
+                delete[] arr;
+                return nullptr;
+            }
+            arr[i] = ptr->pointer;
+            ptr = ptr->next;
+        }
+        return arr;
+    }
 };
 
 
@@ -215,6 +231,14 @@ public:
     //! Hàm hủy
     ~Dataset()
     {
+        for (int i=0;i<data->length();i++){
+            data->get(i)->clear();
+        }
+
+        for(int i = 0; i< data->length(); i++){
+            delete this->data->get(i);
+        }
+
         delete data;
         delete nameCol;
     }
@@ -320,6 +344,7 @@ public:
     {
         //TODO: implement Task 2
         nameCol->print();
+        OUTPUT << endl;
     }
     void printHead(int nRows = 5, int nCols = 5) const
     {
@@ -372,6 +397,8 @@ public:
         if (data->length() == 0) return false;
         if(axis == 0) {
             if(index > -1 && index < data->length()) {
+                data->get(index)->clear();
+                delete data->get(index);
                 data->remove(index);
                 return true;
             }
@@ -383,10 +410,19 @@ public:
                 i++;
             }
             if(i == 0) {
-                for(i = 0; i < data->length(); ++i) {
-                    data->get(i)->remove(0);
+                if(data->get(0)->length() == 1) {
+                    for(int i = 0; i < data->length(); i++){
+                        data->get(i)->clear();
+                        delete data->get(i);
+                    }
+                    data->clear();
                 }
-                nameCol->remove(0);
+                else {
+                    for(i = 0; i < data->length(); ++i) {
+                        data->get(i)->remove(0);
+                    }
+                    nameCol->remove(0);
+                }
                 return true;
             } else if (i < nameCol->length()) {
                 int delCol = i;
@@ -432,29 +468,33 @@ public:
 
     double distanceEuclidean(const List<int>* x, const List<int>* y) const{
         double distance = 0.0;
+        int* arrX = x->getArray();
+        int* arrY = y->getArray();
         //TODO: implement Task 2 copy code từ implement Task 1 chỉnh
         if (x->length() != y->length()) {
             int i = 0;
             int count = min(x->length(), y->length());
             for (i; i < count; ++i) {
-                double diff = x->get(i) - y->get(i);
+                double diff = arrX[i] - arrY[i];
                 distance += diff * diff;
             }
             if(x->length() < y->length()){
                 for (i; i < y->length(); i++) {
-                    distance += y->get(i) * y->get(i);
+                    distance += arrY[i] * arrY[i];
                 } 
             } else {
                 for (i; i < x->length(); i++) {
-                    distance += x->get(i) * x->get(i);
+                    distance += arrX[i] * arrX[i];
                 }
             }
         } else {
             for (int i = 0; i < x->length(); ++i) {
-                double diff = x->get(i) - y->get(i);
+                double diff = arrX[i] - arrY[i];
                 distance += diff * diff;
             }
         }
+        delete[] arrX;
+        delete[] arrY;
         return sqrt(distance);
     }
 

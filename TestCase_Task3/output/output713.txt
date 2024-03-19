@@ -17,6 +17,7 @@ Line 18 drop 0 48 1x1 : true
 Line 19 drop 0 30 1x1 : true
 Line 20 getShape : 63 2
 Line 21 columns : label 1x2
+
 Line 22 printHead 100 100
 label 1x2
 6 89

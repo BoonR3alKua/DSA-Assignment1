@@ -8,6 +8,7 @@ Line 9 drop 0 2 1x1 : true
 Line 10 drop 0 31 1x1 : true
 Line 11 getShape : 39 2
 Line 12 columns : label 1x2
+
 Line 13 printHead 100 100
 label 1x2
 8 51

@@ -13,6 +13,7 @@ Line 14 drop 0 51 1x1 : true
 Line 15 drop 1 7 1x1 : false
 Line 16 getShape : 90 1
 Line 17 columns : label
+
 Line 18 printHead 100 100
 label
 4
@@ -106,6 +107,7 @@ label
 6
 6
 Line X : 0 0
+
 
 Line Y : 90 1
 label
@@ -201,12 +203,17 @@ label
 6
 Line X_train : 0 0
 
+
 Line X_test : 0 0
+
 
 Line y_train : 0 0
 
+
 Line y_test : 0 0
 
+
 Line y_predict : 0 0
+
 
 Accuracy: -1

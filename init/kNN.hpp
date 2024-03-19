@@ -17,6 +17,8 @@ public:
     virtual void clear() = 0;
     virtual void print() const = 0;
     virtual void reverse() = 0;
+    virtual List<T>* subList(int start, int end) = 0;
+    virtual void printStartToEnd(int start, int end) const = 0; 
 };
 
 class Dataset {
@@ -28,6 +30,7 @@ public:
     ~Dataset();
     Dataset(const Dataset& other);
     Dataset& operator=(const Dataset& other);
+    List<List<int> *> *getData() const;
     bool loadFromCSV(const char* fileName);
     void printHead(int nRows = 5, int nCols = 5) const;
     void printTail(int nRows = 5, int nCols = 5) const;
@@ -35,6 +38,12 @@ public:
     void columns() const;
     bool drop(int axis = 0, int index = 0, std::string columns = "");
     Dataset extract(int startRow = 0, int endRow = -1, int startCol = 0, int endCol = -1) const;
+    double distanceEuclidean(const List<int>* x, const List<int>* y) const;
+    void merge(double* array, int* label, int const left, int const mid,
+           int const right) const;
+    void mergeSort(double* array, int* label, int const begin, int const end) const;
+    int findkNNLabel(double* distances, int* label, int const length, const int k) const;
+
 };
 
 class kNN {
@@ -43,9 +52,9 @@ private:
     //You may need to define more
 public:
     kNN(int k = 5);
-    void fit(const Dataset& X_train, const Dataset& y_train);
-    Dataset predict(const Dataset& X_test);
-    double score(const Dataset& y_test, const Dataset& y_pred);
+    void fit(const Dataset &X_train, const Dataset &y_train);
+    Dataset predict(const Dataset& X_train, const Dataset& Y_train, const int k) const;
+    double score(const Dataset& y_test) const;
 };
 
 void train_test_split(Dataset& X, Dataset& y, double test_size, 
