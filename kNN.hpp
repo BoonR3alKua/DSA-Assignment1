@@ -1,4 +1,3 @@
-
 #include "main.hpp"
 
 
@@ -180,21 +179,17 @@ public:
     } 
 
     List<T>* subList(int start, int end) {
-        if (start < 0 || start >= this->size || end < start || head == nullptr) return nullptr;
         List<T>* result = new Image<T>();
+        if (start < 0 || start > this->size - 1 || end < start - 1 || head == nullptr) return result;
         Node* ptr = head;
         for (int i = 0; i < start; ++i) {
             ptr = ptr->next;
         }
-        if(ptr == nullptr) return nullptr;
-        if (start == end) {
+        if(ptr == nullptr) return result;
+        end = min(end, this->size);
+        for (int i = start; i < end && i < this->size; ++i) {
             result->push_back(ptr->pointer);
-        } else {
-            end = min(end, this->size);
-            for (int i = start; i <= end && i <= this->size; ++i) {
-                result->push_back(ptr->pointer);
-                ptr = ptr->next;
-            }
+            ptr = ptr->next;
         }
         return result;
     }
@@ -344,25 +339,31 @@ public:
     {
         //TODO: implement Task 2
         nameCol->print();
-        OUTPUT << endl;
     }
     void printHead(int nRows = 5, int nCols = 5) const
     {
         int row = nRows, col = nCols;
+        if(nRows <= 0 || nCols <= 0) return;
         if(data->length() == 0) {
-            this->columns();
+            if(nCols > nameCol->length()) col = nameCol->length();
+            nameCol->printStartToEnd(0, col);
             return;
         }
-        if(nRows <= 0 || nCols <= 0) return;
         //TODO: implement Task 2
-        if(nRows > this->data->length()) row = this->data->length();
-        if(nCols > nameCol->length()) col = nameCol->length();
-
-        if(nameCol->length() != 0)nameCol->printStartToEnd(0, col);
+        if(nRows > data->length()) row = this->data->length();
+        if(nameCol->length() < data->get(0)->length()) {
+            if(nCols > nameCol->length()) col = nameCol->length();
+        } else {
+            if(nCols > data->get(0)->length()) col = data->get(0)->length();
+            else if(nCols > nameCol->length()) col = nameCol->length();
+            
+        }
+        nameCol->printStartToEnd(0, col);
         OUTPUT << endl;
-        col = nCols;
-        if(nCols > this->data->get(0)->length()) col = this->data->get(0)->length();
+        
         for (int i = 0; i < row; i++) {
+            col = nCols;
+            if(nCols > this->data->get(i)->length()) col = this->data->get(i)->length();
             data->get(i)->printStartToEnd(0, col);
             if (i == row - 1) break;
             OUTPUT << endl;
@@ -371,30 +372,36 @@ public:
 
     void printTail(int nRows = 5, int nCols = 5) const
     {
+        int row = nRows, col = nCols;
+        if(nRows <= 0 || nCols <= 0) return;
         if(data->length() == 0) {
-            this->columns();
+            if(nCols > nameCol->length()) col = nameCol->length();
+            nameCol->printStartToEnd(nameCol->length() - col, nameCol->length());
             return;
         }
-        if(nRows <= 0 || nCols <= 0) return;
         //TODO: implement Task 2
-        int tmpCols = nCols;
-        if(nRows > data->length()) nRows = data->length();
-        if(tmpCols > nameCol->length()) tmpCols = nameCol->length();
-        
-        nameCol->printStartToEnd(nameCol->length() - tmpCols, nameCol->length());
-        OUTPUT << endl;
-
-        for (int i = data->length() - nRows; i < data->length(); ++i) {
-            tmpCols = nCols;
-            if(tmpCols > nameCol->length()) tmpCols = nameCol->length();
-            data->get(i)->printStartToEnd(data->get(i)->length() - tmpCols, data->get(i)->length());
-            if(i != data->length() - 1)OUTPUT << endl;
+        if(nRows > data->length()) row = data->length();
+        if(nameCol->length() < data->get(0)->length()) {
+            if(nCols > nameCol->length()) col = nameCol->length();
+            nameCol->printStartToEnd(nameCol->length() - col, nameCol->length());
+        } else {
+            if(nCols > nameCol->length()) col = nameCol->length();
+            else if(nCols > data->get(0)->length())col = data->get(0)->length();
+            nameCol->printStartToEnd(data->get(0)->length() - col, data->get(0)->length());
         }
+        OUTPUT << endl;
+        for (int i = data->length() - row; i < data->length(); ++i) {
+            col = nCols;
+            if(nCols > data->get(i)->length()) col = data->get(i)->length();
+            data->get(i)->printStartToEnd(data->get(i)->length() - col, data->get(i)->length());
+            if (i == data->length() - 1) break;
+            OUTPUT << endl;
+        }
+        
     }
     bool drop(int axis = 0, int index = 0, std::string columns = "")
     {
         //TODO: implement Task 2
-        if (data->length() == 0) return false;
         if(axis == 0) {
             if(index > -1 && index < data->length()) {
                 data->get(index)->clear();
@@ -403,11 +410,29 @@ public:
                 return true;
             }
         }else if (axis == 1) {
-            if(columns == "") return false;
+            if(columns == "") {
+                if(this->data->length() == 0) nameCol->clear();
+                return false;
+            }
+            
             int i = 0;
             while(i < nameCol->length()){
                 if(columns == nameCol->get(i)) break;
                 i++;
+            }
+            if (data->length() == 0) {
+                if(i == 0) {
+                    if(nameCol->length() == 1) {
+                        nameCol->remove(0);
+                    }
+                    else {
+                        nameCol->remove(0);
+                    }
+                    return true;
+                } else if (i < nameCol->length()) {
+                    nameCol->remove(i);
+                    return true;
+                }
             }
             if(i == 0) {
                 if(data->get(0)->length() == 1) {
@@ -416,6 +441,7 @@ public:
                         delete data->get(i);
                     }
                     data->clear();
+                    nameCol->remove(0);
                 }
                 else {
                     for(i = 0; i < data->length(); ++i) {
@@ -441,7 +467,7 @@ public:
         //TODO: implement Task 2
         int endR = endRow, endC = endCol;
         Dataset* subMatrix = new Dataset();
-        if(this->data->length() == 0) return* subMatrix;
+        if(this->data->length() == 0 || startRow < 0 || startCol < 0) return* subMatrix;
         if(endRow < 0 || endRow > data->length() - 1){
             endR = data->length() - 1;
         }
@@ -451,16 +477,18 @@ public:
         if( startRow > endR || startCol > endC ||startRow > data->length() - 1 
             || startCol > data->get(0)->length() - 1) return* subMatrix;
         endC = endCol;
-        if(endCol < 0 || endCol > nameCol->length() - 1){
+        if(endCol < 0 || endCol > nameCol->length()){
             endC = nameCol->length() - 1;
         }
-        if(startCol <= endC) subMatrix->nameCol = nameCol->subList(startCol, endC);
-        else subMatrix->nameCol->push_back("");
-        for(int i = startRow; i <= endR; ++i) {
+        endR += 1;
+        endC += 1;
+        subMatrix->nameCol = nameCol->subList(startCol, endC);
+        for(int i = startRow; i < endR; ++i) {
             endC = endCol;
             if(endCol < 0 || endCol > data->get(i)->length() - 1){
                 endC = data->get(i)->length() - 1;
             }
+            endC += 1;
             subMatrix->data->push_back(data->get(i)->subList(startCol, endC));
         }
         return* subMatrix;

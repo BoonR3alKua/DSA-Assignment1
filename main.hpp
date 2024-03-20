@@ -20,8 +20,5 @@
 
 using namespace std;
 inline ofstream OUTPUT;
-#define folder_input "TestCase_Task3/input/input"
-#define folder_output "TestCase_Task3/output/output"
-#define folder_expect "TestCase_Task3/expect/expect"
 
 #endif // DSA232_A1_MAIN_H
