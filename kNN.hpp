@@ -52,7 +52,7 @@ public:
     }
     void push_back(T value){
         //TODO: implement task 1
-        Node* newNode = new Node(value);
+        Node* newNode = new Node(value, nullptr);
         if(!head) head = tail = newNode;
         else{
             tail->next = newNode;
@@ -60,9 +60,9 @@ public:
         }
         size++;
     }
-    void push_front(T value){
+    void push_front(T value) {
         //TODO: implement task 1
-        Node* newNode = new Node(value);
+        Node* newNode = new Node(value, nullptr);
         if(!head) head = tail = newNode;
         else{
             newNode->next = head;
@@ -73,12 +73,15 @@ public:
     void insert(int index, T value){
         if(index < 0 || index > size) return;
         //TODO: implement task 1
-        Node* newNode = new Node(value);
+        Node* newNode = new Node(value, nullptr);
         if(!head) {
             head = tail = newNode;
         } else if(index == 0) {
             newNode->next = head;
             head = newNode;
+        } else if(index == size) {
+            tail->next = newNode;
+            tail = newNode;
         } else {
             Node* ptr = head;
             for(int i = 0; i < index - 1; ++i){
@@ -114,13 +117,13 @@ public:
 
 
     T& get(int index) const{
-        if(index < 0 || index >= this->size)  throw std::out_of_range("get(): Out of range");
+        if(index < 0 || index >= this->size) throw std::out_of_range("get(): Out of range");
         //TODO: implement task 1
         Node* ptr = head;
         for(int i = 0; i < index; ++i){
             ptr = ptr->next;
         }
-        return this;
+        return ptr->pointer;
     }
 
     int length() const{
@@ -139,7 +142,7 @@ public:
         size = 0;
     }
 
-    void print() const{
+    void print() const {
         if(size == 0) OUTPUT << "nullptr" << endl;
         Node* temp = head;
         for(int i = 0; i < this->size; i++)
@@ -176,11 +179,20 @@ public:
 
     List<T>* subList(int start, int end){
 
-        if(this->size <= start) return nullptr;
+        if (start < 0 || start >= this->size || end <= start) return nullptr;
         List<T>* result = new Image<T>();
 
         //TODO: implement task 1
         //^ gợi ý: dùng push_back
+        end = min(end, this->size);
+        Node* ptr = head;
+        for (int i = 0; i < start; ++i) {
+            ptr = ptr->next;
+        }
+        for (int i = start; i < end; ++i) {
+            result->push_back(ptr->pointer);
+            ptr = ptr->next;
+        }
         return result;
     }
 
@@ -188,6 +200,28 @@ public:
         double distance = 0.0;
         //TODO: implement task 1
         //^ gợi ý dùng length, get
+        if (this->length() != image->length()) {
+            int i = 0;
+            int count = min(this->length(), image->length());
+            for (i; i < count; ++i) {
+                T diff = this->get(i) - image->get(i);
+                distance += diff * diff;
+            }
+            if(this->length() < image->length()){
+                for (i; i < image->length(); i++) {
+                    distance += image->get(i) * image->get(i);
+                } 
+            } else {
+                for (i; i < this->length(); i++) {
+                    distance += this->get(i) * this->get(i);
+                }
+            }
+        } else {
+            for (int i = 0; i < this->length(); ++i) {
+                T diff = this->get(i) - image->get(i);
+                distance += diff * diff;
+            }
+        }
         return sqrt(distance);
     }
 };

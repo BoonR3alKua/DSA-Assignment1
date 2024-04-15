@@ -4,12 +4,12 @@ insert 2 2
 insert 2 3
 insert 1 4
 insert 0 7
-print : nullptr
-get 0 : get(): Out of range
+print : 7 1 4 0 3 2
+get 0 : 7
 get -1 : get(): Out of range
 get 6 : get(): Out of range
-get 5 : get(): Out of range
-get 4 : get(): Out of range
-get 3 : get(): Out of range
-get 2 : get(): Out of range
-get 1 : get(): Out of range
+get 5 : 2
+get 4 : 3
+get 3 : 0
+get 2 : 4
+get 1 : 1
